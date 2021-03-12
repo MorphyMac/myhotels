@@ -1,0 +1,25 @@
+###
+### how to generate key pair for RSA (asymmetric cryptography)
+
+
+
+keytool -genkeypair \
+	-alias myhotelsapiencryptionkey \
+	-keyalg RSA \
+	-dname "CN=anwar alamc, OU=api development,O=myhotels.com,L=hyderabad,S=TEL,C=IND" \
+	-keypass mys3cr3t \
+	-keystore myhotelsapiencryptionkey.jks
+	-storepass mys3cr3t
+
+
+keytool -genkeypair -alias myhotelsapiencryptionkey -keyalg RSA -dname "CN=anwar alamc, OU=api development,O=myhotels.com,L=hyderabad,S=TEL,C=IND" -keypass mys3cr3t -keystore myhotelsapiencryptionkey.jks -storepass mys3cr3t
+
+
+
+## if you got warning related to keystore type run below command to change JKS (proprietary format) keystore to pkcs12
+keytool -importkeystore \
+	-srckeystore myhotelsapiencryptionkey.jks \
+	-destkeystore myhotelsapiencryptionkey.jks \
+	-deststoretype pkcs12
+	
+## it will ask for password we gave above ---> mys3cr3t

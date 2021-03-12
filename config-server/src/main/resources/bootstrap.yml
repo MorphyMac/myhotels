@@ -1,0 +1,6 @@
+encrypt:
+  #  key: mys3cr3t
+  key-store:
+    location: classpath:./infra/myhotelsapiencryptionkey.jks
+    password: mys3cr3t
+    alias: myhotelsapiencryptionkey

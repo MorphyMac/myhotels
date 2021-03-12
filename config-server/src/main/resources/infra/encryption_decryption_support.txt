@@ -1,0 +1,3 @@
+https://www.oracle.com/java/technologies/javase-jce8-downloads.html
+
+download JCE extension used by config server and put policy files in JDK's lib/security
