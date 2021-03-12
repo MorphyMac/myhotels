@@ -123,7 +123,6 @@ public class RoomServiceTest {
 
     @Test
     public void delete() {
-        RoomModel roomModel = mock(RoomModel.class);
         Room roomEntity = mock(Room.class);
 
         Mockito.when(roomRepository.findById(ArgumentMatchers.any(Long.class))).thenReturn(Optional.of(roomEntity));
@@ -164,6 +163,19 @@ public class RoomServiceTest {
         List<RoomModel> all = roomService.findAll();
 
         Assertions.assertNotNull(all);
+
+        verify(roomRepository).findAll();
+    }
+
+    @Test
+    public void findAll_empty() {
+        List<Room> entities = new ArrayList<>();
+        Mockito.when(roomRepository.findAll()).thenReturn(entities);
+
+        List<RoomModel> all = roomService.findAll();
+
+        Assertions.assertNotNull(all);
+        Assertions.assertTrue(all.isEmpty());
 
         verify(roomRepository).findAll();
     }

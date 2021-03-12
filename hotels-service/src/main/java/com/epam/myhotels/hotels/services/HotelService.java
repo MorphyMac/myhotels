@@ -6,6 +6,7 @@ import com.epam.myhotels.hotels.exception.HotelNotFoundException;
 import com.epam.myhotels.hotels.model.HotelModel;
 import com.epam.myhotels.hotels.model.mapper.HotelModelMapper;
 import com.epam.myhotels.hotels.repository.HotelRepository;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Service
 @Slf4j
+@Setter
 public class HotelService {
 
     @Autowired
