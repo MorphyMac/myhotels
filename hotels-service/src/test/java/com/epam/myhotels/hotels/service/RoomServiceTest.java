@@ -8,7 +8,6 @@ import com.epam.myhotels.hotels.repository.RoomRepository;
 import com.epam.myhotels.hotels.services.RoomService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -150,18 +149,14 @@ public class RoomServiceTest {
     }
 
     @Test
-    @Disabled
     public void findAll() {
         List<Room> entities = new ArrayList<>();
         entities.add(mock(Room.class));
         List<Room> entitiesSpy = spy(entities);
         Mockito.when(roomRepository.findAll()).thenReturn(entitiesSpy);
 
-        RoomModel roomModel = mock(RoomModel.class);
-        Mockito.when(roomModel.getId()).thenReturn(100L);
-        Mockito.when(roomModel.getHotelId()).thenReturn(1L);
-        Mockito.when(roomModel.getRoomNumber()).thenReturn(1);
         List<RoomModel> models = new ArrayList<>();
+        RoomModel roomModel = mock(RoomModel.class);
         models.add(roomModel);
         List<RoomModel> modelsSpy = spy(models);
         Mockito.when(roomModelMapper.toModels(entitiesSpy)).thenReturn(modelsSpy);
