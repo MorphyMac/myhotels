@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      enable: true
+      fail-fast: true
+      name: config-server
+      uri: http://localhost:8012
