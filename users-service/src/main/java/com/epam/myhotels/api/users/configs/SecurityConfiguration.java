@@ -21,8 +21,6 @@ import java.util.Arrays;
 @Setter
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String[] AUTH_WHITELIST = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs",
-            "/webjars/**"};
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
