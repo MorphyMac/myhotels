@@ -17,12 +17,12 @@ import static com.epam.myhotels.api.users.dto.UserValidationGroup.UpdateUser;
 @AllArgsConstructor
 public class UserDto {
 
-    @NotNull(message = "{NotNull.user.firstname}", groups = {CreateUser.class, UpdateUser.class})
-    @Size(min = 2, message = "{Size.user.firstname}", groups = {CreateUser.class, UpdateUser.class})
+    @NotNull(message = "{NotNull.user.firstName}", groups = {CreateUser.class, UpdateUser.class})
+    @Size(min = 2, message = "{Size.user.firstName}", groups = {CreateUser.class, UpdateUser.class})
     private String firstName;
 
-    @NotNull(message = "{NotNull.user.lastname}", groups = {CreateUser.class, UpdateUser.class})
-    @Size(min = 2, message = "{Size.user.lastname}", groups = {CreateUser.class, UpdateUser.class})
+    @NotNull(message = "{NotNull.user.lastName}", groups = {CreateUser.class, UpdateUser.class})
+    @Size(min = 2, message = "{Size.user.lastName}", groups = {CreateUser.class, UpdateUser.class})
     private String lastName;
 
     @NotNull(groups = CreateUser.class)

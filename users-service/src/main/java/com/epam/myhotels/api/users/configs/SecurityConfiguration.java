@@ -8,17 +8,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.Filter;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 @Setter
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final String[] AUTH_WHITELIST = {"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs",
+            "/webjars/**"};
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -34,9 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/users/**").permitAll()
-            .antMatchers("/actuator/**").permitAll()
-            .antMatchers("/hystrix/**").permitAll().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers("/users/**").permitAll().anyRequest().authenticated();
         http.headers().frameOptions().disable();
         http.addFilter(loginFilter());
     }
@@ -45,5 +47,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         LoginFilter filter = new LoginFilter(authenticationManager(), userService, environment);
         filter.setFilterProcessesUrl(environment.getProperty("login.url.path"));
         return filter;
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        String whitelistUrlsStr = environment.getProperty("app.security.whitelisted.urls");
+        assert whitelistUrlsStr != null;
+        String[] whitelistUrls = whitelistUrlsStr.split(",");
+
+        web.ignoring().antMatchers(Arrays.stream(whitelistUrls).filter(str -> !str.isBlank()).map(String::trim)
+                                         .toArray(String[]::new));
     }
 }

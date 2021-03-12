@@ -4,9 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -49,11 +50,22 @@ public class ApplicationErrorDtoBuilder {
         return this;
     }
 
-    public ApplicationErrorDtoBuilder constraintViolation(Iterable<ConstraintViolation<?>> constraintViolations) {
+    public ApplicationErrorDtoBuilder fieldErrors(Exception exception) {
         this.fieldErrors = new ArrayList<>();
-        constraintViolations.forEach(violation -> fieldErrors
-                .add(new ApplicationErrorDto.FieldErrorDto(violation.getPropertyPath().toString(), violation
-                        .getMessage())));
+
+        if (exception instanceof ConstraintViolationException) {
+            ((ConstraintViolationException) exception).getConstraintViolations().forEach(violation -> fieldErrors
+                    .add(new ApplicationErrorDto.FieldErrorDto(violation.getPropertyPath().toString(), violation
+                            .getMessage())));
+        } else if (exception instanceof MethodArgumentNotValidException) {
+            ((MethodArgumentNotValidException) exception).getFieldErrors().forEach(violation -> fieldErrors
+                    .add(new ApplicationErrorDto.FieldErrorDto(violation.getField(), violation.getDefaultMessage())));
+        } else {
+            // skip field errors
+            this.fieldErrors = null;
+        }
+
+
         return this;
     }
 
@@ -110,7 +122,7 @@ public class ApplicationErrorDtoBuilder {
                     errorMessage = errorMessage.concat(" ").concat(fieldError.getReason());
                 } else {
                     errorMessage = errorMessage
-                            .concat(String.format(" Field %s %s", fieldError.getField(), fieldError.getReason()));
+                            .concat(String.format(" Field %s %s.", fieldError.getField(), fieldError.getReason()));
                 }
             }
         }

@@ -8,6 +8,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -36,8 +37,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<ApplicationErrorDto> genericConstraintViolationException(ConstraintViolationException ex,
                                                                                    HttpServletRequest request) {
         ApplicationErrorDto errorDto = new ApplicationErrorDtoBuilder(messageSource, request)
-                .status(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.VALIDATION_ERROR)
-                .constraintViolation(ex.getConstraintViolations()).build();
+                .status(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.VALIDATION_ERROR).fieldErrors(ex).build();
 
         log.error("Generic ConstraintViolationException caught. error-ref-id = {}", errorDto.getErrorRefId(), ex);
         return ResponseEntity.badRequest().body(errorDto);
@@ -47,6 +47,16 @@ public class ControllerExceptionHandler {
     public ResponseEntity<ApplicationErrorDto> genericMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
         ApplicationErrorDto errorDto = new ApplicationErrorDtoBuilder(messageSource, request)
                 .status(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.BAD_REQUEST).message(ex.getMessage()).build();
+
+        log.error("Generic MethodArgumentTypeMismatchException caught. error-ref-id = {}", errorDto
+                .getErrorRefId(), ex);
+        return ResponseEntity.badRequest().body(errorDto);
+    }
+
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    public ResponseEntity<ApplicationErrorDto> genericMethodArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
+        ApplicationErrorDto errorDto = new ApplicationErrorDtoBuilder(messageSource, request)
+                .status(HttpStatus.BAD_REQUEST).errorCode(ApiErrorCode.BAD_REQUEST).fieldErrors(ex).build();
 
         log.error("Generic MethodArgumentTypeMismatchException caught. error-ref-id = {}", errorDto
                 .getErrorRefId(), ex);

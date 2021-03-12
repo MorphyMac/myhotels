@@ -1,5 +1,6 @@
 package com.epam.myhotels.api.users.dto;
 
+import com.epam.myhotels.api.users.dto.UserValidationGroup.CreateUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,19 +14,19 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class UserRegistrationDto {
 
-    @NotNull(message = "{NotNull.user.firstname}")
-    @Size(min = 2, message = "{Size.user.firstname}")
+    @NotNull(message = "{NotNull.user.firstName}", groups = {CreateUser.class})
+    @Size(min = 2, message = "{Size.user.firstName}", groups = {CreateUser.class})
     private String firstName;
 
-    @NotNull(message = "{NotNull.user.lastname}")
-    @Size(min = 2, message = "{Size.user.lastname}")
+    @NotNull(message = "{NotNull.user.lastName}", groups = {CreateUser.class})
+    @Size(min = 2, message = "{Size.user.lastName}", groups = {CreateUser.class})
     private String lastName;
 
-    @NotNull
-    @Email
+    @NotNull(groups = {CreateUser.class})
+    @Email(groups = {CreateUser.class})
     private String email;
 
-    @NotNull(message = "{NotNull.user.password}")
-    @Size(min = 8, max = 16, message = "{Size.user.password}")
+    @NotNull(message = "{NotNull.user.password}", groups = {CreateUser.class})
+    @Size(min = 8, max = 16, message = "{Size.user.password}", groups = {CreateUser.class})
     private String password;
 }
