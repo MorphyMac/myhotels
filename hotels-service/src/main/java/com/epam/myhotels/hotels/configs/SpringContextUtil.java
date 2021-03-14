@@ -3,7 +3,6 @@ package com.epam.myhotels.hotels.configs;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,7 @@ public class SpringContextUtil implements ApplicationContextAware {
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.appContext = applicationContext;
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        SpringContextUtil.appContext = applicationContext;
     }
 }

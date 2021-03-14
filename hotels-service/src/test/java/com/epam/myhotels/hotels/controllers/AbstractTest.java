@@ -3,6 +3,8 @@ package com.epam.myhotels.hotels.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -30,5 +32,10 @@ public class AbstractTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void test() {
+        Assertions.assertTrue(true);
     }
 }

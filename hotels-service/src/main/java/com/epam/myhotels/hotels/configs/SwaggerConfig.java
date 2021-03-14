@@ -58,13 +58,14 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        String swaggerResources = "/swagger-resources";
         registry.addViewController("/docs/v2/api-docs").setViewName("forward:/v2/api-docs");
-        registry.addRedirectViewController("/docs/swagger-resources/configuration/ui", "/swagger-resources" +
+        registry.addRedirectViewController("/docs/swagger-resources/configuration/ui", swaggerResources +
                 "/configuration/ui");
-        registry.addRedirectViewController("/docs/swagger-resources/configuration/security", "/swagger-resources" +
+        registry.addRedirectViewController("/docs/swagger-resources/configuration/security", swaggerResources +
                 "/configuration/security");
-        registry.addRedirectViewController("/docs/swagger-resources", "/swagger-resources");
-        registry.addRedirectViewController("/docs/swagger-resources/configuration/ui", "/swagger-resources" +
+        registry.addRedirectViewController("/docs/swagger-resources", swaggerResources);
+        registry.addRedirectViewController("/docs/swagger-resources/configuration/ui", swaggerResources +
                 "/configuration/ui");
         registry.addRedirectViewController("/docs", "/docs/swagger-ui.html");
         registry.addRedirectViewController("/docs/", "/docs/swagger-ui.html");
