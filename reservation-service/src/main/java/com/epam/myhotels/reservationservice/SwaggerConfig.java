@@ -27,7 +27,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     @Bean
     public Docket getDocket() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("User-Service-API").apiInfo(apiInfo())
+        return new Docket(DocumentationType.SWAGGER_2).groupName("Reservation-Service-API").apiInfo(apiInfo())
                                                       .securityContexts(Collections.singletonList(securityContext()))
                                                       .securitySchemes(Collections.singletonList(apiKey())).select()
                                                       .apis(RequestHandlerSelectors
@@ -36,8 +36,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Users Service API")
-                                   .description("Service for managing users and authentication token generations")
+        return new ApiInfoBuilder().title("Reservation Service API").description("Service for managing reservations")
                                    .build();
     }
 
