@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.net.URI;
 
@@ -31,7 +32,7 @@ public class ReservationController implements ReservationSwaggerWrapper {
 
     @PostMapping
     @Override
-    public ResponseEntity<ReservationDto> reservationRequest(@RequestBody ReservationDto reservationDto) {
+    public ResponseEntity<ReservationDto> reservationRequest(@Valid @RequestBody ReservationDto reservationDto) {
         ReservationDto saved = reservationDtoMapper
                 .toDto(reservationService.save(reservationDtoMapper.toModel(reservationDto)));
 

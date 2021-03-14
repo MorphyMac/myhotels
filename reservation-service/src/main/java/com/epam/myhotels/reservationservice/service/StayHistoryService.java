@@ -57,11 +57,11 @@ public class StayHistoryService {
 
     @Transactional(readOnly = true)
     public List<StayHistoryModel> findAll() {
-        List<StayHistory> stayHistorys = stayHistoryRepository.findAll();
-        if (CollectionUtils.isEmpty(stayHistorys)) {
+        List<StayHistory> stayHistories = stayHistoryRepository.findAll();
+        if (CollectionUtils.isEmpty(stayHistories)) {
             return Collections.emptyList();
         } else {
-            return stayHistoryModelMapper.toModels(stayHistorys);
+            return stayHistoryModelMapper.toModels(stayHistories);
         }
     }
 }
