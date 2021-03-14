@@ -2,6 +2,7 @@ package com.epam.myhotels.hotels.entity;
 
 
 import com.epam.myhotels.hotels.entity.enums.RoomStatus;
+import com.epam.myhotels.hotels.entity.listerner.RoomEntityListener;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,14 +15,15 @@ import static javax.persistence.CascadeType.*;
 @Table(name = "room")
 @Data
 @NoArgsConstructor
+@EntityListeners({RoomEntityListener.class})
 public class Room implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private Integer number;
+    @Column(name = "number", nullable = false)
+    private Integer roomNumber;
 
     @Column(nullable = false)
     private String name;
@@ -31,10 +33,8 @@ public class Room implements Serializable {
     private RoomStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {PERSIST, REFRESH, DETACH, MERGE})
-    @JoinColumn(name = "room_type_id", insertable = false, updatable = false)
+    @JoinColumn(name = "room_type_id", updatable = false)
     private RoomType roomType;
-    @Column(name = "room_type_id", nullable = false)
-    private Long roomTypeId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinColumn(name = "hotel_id", insertable = false, updatable = false)

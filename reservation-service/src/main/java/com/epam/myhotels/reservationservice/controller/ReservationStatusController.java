@@ -1,4 +1,4 @@
-package com.epam.myhotels.reservationservice;
+package com.epam.myhotels.reservationservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

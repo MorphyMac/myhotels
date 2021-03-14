@@ -1,6 +1,5 @@
-package com.epam.myhotels.hotels.dto;
+package com.epam.myhotels.reservationservice.support.dto.hotels;
 
-import com.epam.myhotels.hotels.entity.enums.RoomStatus;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
@@ -22,8 +22,7 @@ public class RoomDto {
     @NotNull
     private Integer roomNumber;
     @NotNull
-    private String name;
+    private BigInteger rate;
     @NotNull
     private RoomTypeDto roomType;
-    private RoomStatus status;
 }

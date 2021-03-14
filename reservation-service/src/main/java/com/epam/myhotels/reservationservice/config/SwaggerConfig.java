@@ -1,4 +1,4 @@
-package com.epam.myhotels.reservationservice;
+package com.epam.myhotels.reservationservice.config;
 
 
 import org.springframework.context.annotation.Bean;
