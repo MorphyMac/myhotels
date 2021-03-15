@@ -8,6 +8,7 @@ import com.epam.myhotels.hotels.model.mapper.HotelModelMapper;
 import com.epam.myhotels.hotels.repository.HotelRepository;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,8 +56,9 @@ public class HotelService {
     }
 
     @Transactional(readOnly = true)
-    public List<HotelModel> findAll() {
-        List<Hotel> hotels = hotelRepository.findAll();
+    public List<HotelModel> findAll(String city) {
+        List<Hotel> hotels = StringUtils.isEmpty(city) ? hotelRepository.findAll() : hotelRepository
+                .findByAddress_CityContaining(city);
         if (CollectionUtils.isEmpty(hotels)) {
             return Collections.emptyList();
         } else {

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @WebMvcTest(HotelController.class)
 public class HotelControllerTest extends AbstractTest {
@@ -73,11 +74,12 @@ public class HotelControllerTest extends AbstractTest {
         List<HotelDto> hotelDtoList = easyRandom.objects(HotelDto.class, 4).collect(Collectors.toList());
         List<HotelModel> hotels = easyRandom.objects(HotelModel.class, 2).collect(Collectors.toList());
 
-        Mockito.when(hotelService.findAll()).thenReturn(hotels);
+        Mockito.when(hotelService.findAll(anyString())).thenReturn(hotels);
         Mockito.when(hotelDtoMapper.toDto(hotels)).thenReturn(hotelDtoList);
 
-        mvc.perform(MockMvcRequestBuilders.get("/hotels").accept(MediaType.APPLICATION_JSON))
-           .andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+        mvc.perform(MockMvcRequestBuilders.get("/hotels").queryParam("city", "hyderabad")
+                                          .accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print())
+           .andExpect(MockMvcResultMatchers.status().isOk())
            .andExpect(MockMvcResultMatchers.jsonPath("$.hotels").exists())
            .andExpect(MockMvcResultMatchers.jsonPath("$.hotels[*].id").isNotEmpty());
     }

@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
-    List<Hotel> findByAddress_CityLike(String city);
+    List<Hotel> findByAddress_CityContaining(String city);
 }

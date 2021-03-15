@@ -149,7 +149,7 @@ public class HotelServiceTest {
         List<HotelModel> modelsSpy = spy(models);
         Mockito.when(hotelModelMapper.toModels(entitiesSpy)).thenReturn(modelsSpy);
 
-        List<HotelModel> all = hotelService.findAll();
+        List<HotelModel> all = hotelService.findAll(null);
 
         Assertions.assertNotNull(all);
 
@@ -161,12 +161,32 @@ public class HotelServiceTest {
         List<Hotel> entities = new ArrayList<>();
         Mockito.when(hotelRepository.findAll()).thenReturn(entities);
 
-        List<HotelModel> all = hotelService.findAll();
+        List<HotelModel> all = hotelService.findAll(null);
 
         Assertions.assertNotNull(all);
         Assertions.assertTrue(all.isEmpty());
 
         verify(hotelRepository).findAll();
+    }
+
+    @Test
+    public void findAll_filter_city() {
+        List<Hotel> entities = new ArrayList<>();
+        entities.add(mock(Hotel.class));
+        List<Hotel> entitiesSpy = spy(entities);
+        Mockito.when(hotelRepository.findByAddress_CityContaining(anyString())).thenReturn(entitiesSpy);
+
+        List<HotelModel> models = new ArrayList<>();
+        HotelModel hotelModel = mock(HotelModel.class);
+        models.add(hotelModel);
+        List<HotelModel> modelsSpy = spy(models);
+        Mockito.when(hotelModelMapper.toModels(entitiesSpy)).thenReturn(modelsSpy);
+
+        List<HotelModel> all = hotelService.findAll("hyderabad");
+
+        Assertions.assertNotNull(all);
+
+        verify(hotelRepository).findByAddress_CityContaining(anyString());
     }
 
 }

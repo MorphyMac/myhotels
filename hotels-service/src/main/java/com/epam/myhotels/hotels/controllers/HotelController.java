@@ -49,7 +49,7 @@ public class HotelController {
     }
 
     @GetMapping
-    public ResponseEntity<HotelsDto> getAllHotels() {
-        return ResponseEntity.ok(new HotelsDto(hotelDtoMapper.toDto(hotelService.findAll())));
+    public ResponseEntity<HotelsDto> getAllHotels(@RequestParam(name = "city", required = false) String city) {
+        return ResponseEntity.ok(new HotelsDto(hotelDtoMapper.toDto(hotelService.findAll(city))));
     }
 }
