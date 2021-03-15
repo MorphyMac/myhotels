@@ -36,11 +36,6 @@ public class Room implements Serializable {
     @JoinColumn(name = "room_type_id", updatable = false)
     private RoomType roomType;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
-    @JoinColumn(name = "hotel_id", insertable = false, updatable = false)
-    private Hotel hotel;
     @Column(name = "hotel_id", nullable = false)
     private Long hotelId;
-
-    // price
 }

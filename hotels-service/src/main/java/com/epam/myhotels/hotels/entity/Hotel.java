@@ -27,7 +27,8 @@ public class Hotel implements Serializable {
 
     private String contact;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hotel")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
     private Set<Room> rooms;
 
     // images
