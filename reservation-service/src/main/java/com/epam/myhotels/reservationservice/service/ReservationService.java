@@ -6,6 +6,7 @@ import com.epam.myhotels.reservationservice.exception.ReservationNotFoundExcepti
 import com.epam.myhotels.reservationservice.model.ReservationModel;
 import com.epam.myhotels.reservationservice.model.mapper.ReservationModelMapper;
 import com.epam.myhotels.reservationservice.repository.ReservationRepository;
+import com.epam.myhotels.reservationservice.support.adapters.GuestServiceClient;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
     @Autowired
     private ReservationModelMapper reservationModelMapper;
+    @Autowired
+    private GuestServiceClient guestServiceClient;
 
     @Transactional
     public ReservationModel save(ReservationModel reservationModel) {
@@ -58,6 +61,16 @@ public class ReservationService {
     @Transactional(readOnly = true)
     public List<ReservationModel> findAll() {
         List<Reservation> reservations = reservationRepository.findAll();
+        if (CollectionUtils.isEmpty(reservations)) {
+            return Collections.emptyList();
+        } else {
+            return reservationModelMapper.toModels(reservations);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReservationModel> findByGuestId(String guestId) {
+        List<Reservation> reservations = reservationRepository.findByGuestId(guestId);
         if (CollectionUtils.isEmpty(reservations)) {
             return Collections.emptyList();
         } else {

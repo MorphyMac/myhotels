@@ -1,6 +1,7 @@
 package com.epam.myhotels.reservationservice.controller;
 
 import com.epam.myhotels.reservationservice.controller.swagger.ReservationSwaggerWrapper;
+import com.epam.myhotels.reservationservice.dto.ReservationCollectionDto;
 import com.epam.myhotels.reservationservice.dto.ReservationDto;
 import com.epam.myhotels.reservationservice.dto.mapper.ReservationDtoMapper;
 import com.epam.myhotels.reservationservice.exception.ReservationNotFoundException;
@@ -52,8 +53,9 @@ public class ReservationController implements ReservationSwaggerWrapper {
 
     @GetMapping("/guests/{guestId}")
     @Override
-    public ResponseEntity<ReservationDto> getReservationsByGuestId(@PathVariable Long guestId)
+    public ResponseEntity<ReservationCollectionDto> getReservationsByGuestId(@PathVariable String guestId)
             throws ReservationNotFoundException {
-        return null;
+        return ResponseEntity.ok(new ReservationCollectionDto(reservationDtoMapper
+                .toDto(reservationService.findByGuestId(guestId))));
     }
 }

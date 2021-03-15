@@ -21,7 +21,7 @@ public class ReservationDto implements Serializable {
     @NotNull
     private ReservationMode mode;
     @NotNull
-    private Long guestId;
+    private String guestId;
     @NotNull
     private Long roomId;
 }

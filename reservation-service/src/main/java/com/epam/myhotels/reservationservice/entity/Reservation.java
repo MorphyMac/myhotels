@@ -32,7 +32,7 @@ public class Reservation implements Serializable {
     private ReservationMode mode;
 
     @Column(nullable = false)
-    private Long guestId;
+    private String guestId;
 
     @Column(name = "room_id", nullable = false, updatable = false)
     private Long roomId;

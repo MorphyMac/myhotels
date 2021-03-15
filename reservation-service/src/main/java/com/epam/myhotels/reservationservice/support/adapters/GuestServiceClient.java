@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface GuestServiceClient {
 
     @GetMapping(value = "/users/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<UserDto> getUser(@PathVariable("userId") Long userId);
+    ResponseEntity<UserDto> getUser(@PathVariable("userId") String userId);
 }

@@ -66,7 +66,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         registry.addRedirectViewController("/docs/swagger-resources", "/swagger-resources");
         registry.addRedirectViewController("/docs/swagger-resources/configuration/ui", "/swagger-resources" +
                 "/configuration/ui");
-        registry.addRedirectViewController("/docs", "/docs/swagger-ui.html");
-        registry.addRedirectViewController("/docs/", "/docs/swagger-ui.html");
+        registry.addRedirectViewController("/docs", "/swagger-ui.html");
+        registry.addRedirectViewController("/docs/", "/swagger-ui.html");
     }
 }
