@@ -49,7 +49,7 @@ public class HotelControllerTest extends AbstractTest {
 
     @Test
     public void bad_request_createHotel() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.post("/hotels").content(asJsonString(null))
+        mvc.perform(MockMvcRequestBuilders.post("/hotels").content(asJsonString(new HotelDto()))
                                           .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
            .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }

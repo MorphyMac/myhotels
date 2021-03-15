@@ -63,7 +63,7 @@ public class RoomControllerTest extends AbstractTest {
 
     @Test
     public void bad_request_createRoom() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.post("/rooms").content(asJsonString(null))
+        mvc.perform(MockMvcRequestBuilders.post("/rooms").content(asJsonString(new RoomDto()))
                                           .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
            .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }

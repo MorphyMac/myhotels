@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class AbstractTest {
+public abstract class AbstractTest {
 
     protected static EasyRandomParameters parameters = new EasyRandomParameters().seed(123L).objectPoolSize(100)
                                                                                  .randomizationDepth(3)
